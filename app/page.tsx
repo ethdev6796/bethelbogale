@@ -1,23 +1,117 @@
-export default function Page() {
+import { createClient } from '@/lib/supabase/server'
+import { HeroSection } from '@/components/portfolio/HeroSection'
+import { AboutSection } from '@/components/portfolio/AboutSection'
+import { SkillsSection } from '@/components/portfolio/SkillsSection'
+import { PortfolioSection } from '@/components/portfolio/PortfolioSection'
+import { ServicesSection } from '@/components/portfolio/ServicesSection'
+import { TestimonialsSection } from '@/components/portfolio/TestimonialsSection'
+import { ContactSection } from '@/components/portfolio/ContactSection'
+import Link from 'next/link'
+
+export default async function Home() {
+  const supabase = await createClient()
+
+  // Fetch all portfolio data
+  const [heroData, aboutData, skillsData, portfolioData, servicesData, testimonialsData, contactData] = await Promise.all([
+    supabase.from('hero').select('*').single(),
+    supabase.from('about').select('*').single(),
+    supabase.from('skills').select('*').order('order_index'),
+    supabase.from('portfolio_items').select('*').order('order_index'),
+    supabase.from('services').select('*').order('order_index'),
+    supabase.from('testimonials').select('*').order('order_index'),
+    supabase.from('contact_info').select('*').single(),
+  ])
+
   return (
-    <main className="relative flex min-h-screen items-center justify-center bg-[color:light-dark(#fff,#000)] text-[color:light-dark(#000,#fff)]">
-      <svg
-        aria-hidden="true"
-        className="size-20"
-        fill="none"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke="currentColor"
-        strokeWidth="0.5"
-      >
-        <path
-          d="M14.2 14.2H17V6.9375C17 4.76288 15.2371 3 13.0625 3H5.8V5.8M14.2 14.2V7.79063L7.79062 14.2H14.2ZM14.2 14.2V17H6.9375C4.76288 17 3 15.2371 3 13.0625V5.8H5.8M5.8 5.8V12.2313L12.2313 5.8H5.8Z"
-          strokeLinejoin="round"
+    <div className="min-h-screen bg-white">
+      {/* Header Navigation */}
+      <header className="sticky top-0 z-50 bg-white shadow-sm">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <div className="text-xl font-bold">Portfolio</div>
+          <div className="flex gap-6 items-center">
+            <a href="#about" className="text-gray-600 hover:text-gray-900 text-sm">
+              About
+            </a>
+            <a href="#skills" className="text-gray-600 hover:text-gray-900 text-sm">
+              Skills
+            </a>
+            <a href="#portfolio" className="text-gray-600 hover:text-gray-900 text-sm">
+              Portfolio
+            </a>
+            <a href="#services" className="text-gray-600 hover:text-gray-900 text-sm">
+              Services
+            </a>
+            <a href="#testimonials" className="text-gray-600 hover:text-gray-900 text-sm">
+              Testimonials
+            </a>
+            <a href="#contact" className="text-gray-600 hover:text-gray-900 text-sm">
+              Contact
+            </a>
+            <Link href="/auth/login" className="text-xs bg-gray-100 px-3 py-2 rounded hover:bg-gray-200">
+              Admin
+            </Link>
+          </div>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      {heroData.data && (
+        <HeroSection
+          title={heroData.data.title}
+          subtitle={heroData.data.subtitle}
+          description={heroData.data.description}
+          ctaButtonText={heroData.data.cta_button_text}
+          ctaButtonLink={heroData.data.cta_button_link}
         />
-      </svg>
-      <p className="absolute left-1/2 top-[calc(50%+56px)] -translate-x-1/2 whitespace-nowrap text-sm font-medium text-muted-foreground">
-        Your v0 generation will show here.
-      </p>
-    </main>
+      )}
+
+      {/* About Section */}
+      {aboutData.data && (
+        <AboutSection
+          title={aboutData.data.title}
+          bio={aboutData.data.bio}
+        />
+      )}
+
+      {/* Skills Section */}
+      {skillsData.data && skillsData.data.length > 0 && (
+        <SkillsSection skills={skillsData.data} />
+      )}
+
+      {/* Portfolio Section */}
+      {portfolioData.data && portfolioData.data.length > 0 && (
+        <PortfolioSection items={portfolioData.data} />
+      )}
+
+      {/* Services Section */}
+      {servicesData.data && servicesData.data.length > 0 && (
+        <ServicesSection services={servicesData.data} />
+      )}
+
+      {/* Testimonials Section */}
+      {testimonialsData.data && testimonialsData.data.length > 0 && (
+        <TestimonialsSection testimonials={testimonialsData.data} />
+      )}
+
+      {/* Contact Section */}
+      {contactData.data && (
+        <ContactSection
+          email={contactData.data.email}
+          phone={contactData.data.phone}
+          address={contactData.data.address}
+          socialLinks={contactData.data.social_links}
+          formDescription={contactData.data.form_description}
+        />
+      )}
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-400">
+            © {new Date().getFullYear()} Portfolio. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
   )
 }
