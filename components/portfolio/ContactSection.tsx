@@ -44,80 +44,96 @@ export function ContactSection({
   }
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-secondary">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+    <section id="contact" className="py-20 md:py-32 bg-background relative overflow-hidden">
+      {/* Animated background gradient */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-1/3 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-30 -mt-48" />
+        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gray-100 rounded-full blur-3xl opacity-20 -mr-32" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <div className="inline-block mb-4">
+            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">Contact</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-foreground">
             Let&apos;s Work Together
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind? Let's connect and create something amazing
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Have a project in mind? I&apos;d love to hear about it. Let&apos;s connect and create something amazing together.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
-          {/* Contact Info */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-20">
+          {/* Contact Info Sidebar */}
           <div className="lg:col-span-1">
-            <div className="space-y-8">
+            <div className="space-y-6">
               {/* Email */}
-              <div className="group">
-                <div className="flex items-center gap-4 mb-3">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="group p-6 rounded-2xl bg-card border border-border hover:border-blue-400 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl flex items-center justify-center text-blue-600 group-hover:from-blue-600 group-hover:to-blue-500 group-hover:text-white transition-all transform group-hover:scale-110">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
-                  <h3 className="font-bold text-foreground">Email</h3>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-foreground mb-1">Email</h3>
+                    <a
+                      href={`mailto:${email}`}
+                      className="text-muted-foreground hover:text-blue-600 transition break-all text-sm"
+                    >
+                      {email}
+                    </a>
+                  </div>
                 </div>
-                <a
-                  href={`mailto:${email}`}
-                  className="text-muted-foreground hover:text-blue-600 transition ml-14 break-all"
-                >
-                  {email}
-                </a>
               </div>
 
               {/* Phone */}
               {phone && (
-                <div className="group">
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="group p-6 rounded-2xl bg-card border border-border hover:border-blue-400 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl flex items-center justify-center text-blue-600 group-hover:from-blue-600 group-hover:to-blue-500 group-hover:text-white transition-all transform group-hover:scale-110">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 00.948.684l1.498 7.492a1 1 0 00.502.756l2.73 1.365a1 1 0 001.27-1.27l-1.365-2.73a1 1 0 00-.756-.502L7.176 3.948a1 1 0 00-.684-.948H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2h-2.5a1 1 0 00-.5.09V5z" />
                       </svg>
                     </div>
-                    <h3 className="font-bold text-foreground">Phone</h3>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-foreground mb-1">Phone</h3>
+                      <a
+                        href={`tel:${phone}`}
+                        className="text-muted-foreground hover:text-blue-600 transition text-sm"
+                      >
+                        {phone}
+                      </a>
+                    </div>
                   </div>
-                  <a
-                    href={`tel:${phone}`}
-                    className="text-muted-foreground hover:text-blue-600 transition ml-14"
-                  >
-                    {phone}
-                  </a>
                 </div>
               )}
 
               {/* Address */}
               {address && (
-                <div className="group">
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="group p-6 rounded-2xl bg-card border border-border hover:border-blue-400 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl flex items-center justify-center text-blue-600 group-hover:from-blue-600 group-hover:to-blue-500 group-hover:text-white transition-all transform group-hover:scale-110 flex-shrink-0">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </div>
-                    <h3 className="font-bold text-foreground">Location</h3>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-foreground mb-1">Location</h3>
+                      <p className="text-muted-foreground text-sm">{address}</p>
+                    </div>
                   </div>
-                  <p className="text-muted-foreground ml-14">{address}</p>
                 </div>
               )}
 
               {/* Social Links */}
               {socialLinks && Object.keys(socialLinks).length > 0 && (
-                <div className="pt-4">
-                  <h3 className="font-bold text-foreground mb-4">Follow Me</h3>
-                  <div className="flex gap-3">
+                <div className="pt-2">
+                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Follow Me</p>
+                  <div className="flex gap-2">
                     {Object.entries(socialLinks).map(([platform, url]) =>
                       url ? (
                         <a
@@ -125,7 +141,7 @@ export function ContactSection({
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition"
+                          className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl flex items-center justify-center text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white hover:shadow-lg transition-all transform hover:scale-110"
                           title={platform}
                         >
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -153,12 +169,18 @@ export function ContactSection({
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="space-y-6 bg-card border border-border rounded-xl p-8">
+            <form onSubmit={handleSubmit} className="space-y-8 bg-gradient-to-br from-card to-secondary border border-border rounded-2xl p-8 md:p-12 shadow-lg hover:shadow-xl transition-shadow">
+              <div>
+                <h3 className="text-2xl font-bold text-foreground mb-2">Send Me a Message</h3>
+                <p className="text-muted-foreground text-sm">I&apos;ll get back to you as soon as possible</p>
+              </div>
+              
               {formDescription && (
-                <p className="text-muted-foreground mb-6">{formDescription}</p>
+                <p className="text-muted-foreground text-sm bg-blue-50 border border-blue-200 rounded-lg p-4">{formDescription}</p>
               )}
 
-              <div className="space-y-2">
+              {/* Name Field */}
+              <div className="space-y-2.5">
                 <label htmlFor="name" className="block text-foreground font-semibold text-sm">
                   Full Name
                 </label>
@@ -171,11 +193,12 @@ export function ContactSection({
                   }
                   placeholder="John Doe"
                   required
-                  className="w-full px-4 py-2 bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 bg-white border-2 border-border text-foreground placeholder:text-muted-foreground rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all"
                 />
               </div>
 
-              <div className="space-y-2">
+              {/* Email Field */}
+              <div className="space-y-2.5">
                 <label htmlFor="email" className="block text-foreground font-semibold text-sm">
                   Email Address
                 </label>
@@ -188,13 +211,14 @@ export function ContactSection({
                   }
                   placeholder="john@example.com"
                   required
-                  className="w-full px-4 py-2 bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-3 bg-white border-2 border-border text-foreground placeholder:text-muted-foreground rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all"
                 />
               </div>
 
-              <div className="space-y-2">
+              {/* Message Field */}
+              <div className="space-y-2.5">
                 <label htmlFor="message" className="block text-foreground font-semibold text-sm">
-                  Message
+                  Your Message
                 </label>
                 <textarea
                   id="message"
@@ -202,31 +226,54 @@ export function ContactSection({
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  placeholder="Tell me about your project..."
+                  placeholder="Tell me about your project, requirements, or any questions you have..."
                   rows={6}
                   required
-                  className="w-full px-4 py-2 bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="w-full px-4 py-3 bg-white border-2 border-border text-foreground placeholder:text-muted-foreground rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all resize-none"
                 />
               </div>
 
+              {/* Success/Error Message */}
               {message && (
                 <div
-                  className={`p-4 rounded-lg border ${
+                  className={`p-4 rounded-xl border-2 flex items-start gap-3 animate-slideIn ${
                     message.includes('Error')
-                      ? 'bg-red-50 border-red-200 text-red-700'
-                      : 'bg-green-50 border-green-200 text-green-700'
+                      ? 'bg-red-50 border-red-300 text-red-700'
+                      : 'bg-green-50 border-green-300 text-green-700'
                   }`}
                 >
-                  {message}
+                  <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    {message.includes('Error') ? (
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    ) : (
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    )}
+                  </svg>
+                  <p className="text-sm font-medium">{message}</p>
                 </div>
               )}
 
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={sending}
-                className="w-full py-3 px-6 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-opacity-90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+                className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-blue-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
               >
-                {sending ? 'Sending...' : 'Send Message'}
+                {sending ? (
+                  <>
+                    <svg className="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </>
+                )}
               </button>
             </form>
           </div>
