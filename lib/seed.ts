@@ -76,20 +76,143 @@ export async function seedDatabase() {
     await supabase.from('services').insert(services)
   }
 
+  // Seed Portfolio Items
+  const { data: portfolioData } = await supabase.from('portfolio_items').select('id').limit(1)
+  if (!portfolioData || portfolioData.length === 0) {
+    const portfolioItems = [
+      {
+        title: 'Corporate Brand Identity',
+        description: 'Complete visual identity system for a tech startup including logo, color palette, and brand guidelines.',
+        category: 'Graphic Design',
+        image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=500&fit=crop',
+        featured: true,
+        order_index: 0,
+      },
+      {
+        title: 'Product Launch Video',
+        description: 'High-impact promotional video for product launch with motion graphics and effects.',
+        category: 'Video Editing',
+        image_url: 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=500&h=500&fit=crop',
+        featured: true,
+        order_index: 1,
+      },
+      {
+        title: 'Social Media Campaign',
+        description: 'Series of animated graphics and short videos for social media marketing campaign.',
+        category: 'Motion Graphics',
+        image_url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=500&fit=crop',
+        featured: true,
+        order_index: 2,
+      },
+      {
+        title: 'Website Design System',
+        description: 'UI/UX design system with comprehensive components and design tokens for a modern web platform.',
+        category: 'UI/UX Design',
+        image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=500&fit=crop',
+        featured: false,
+        order_index: 3,
+      },
+      {
+        title: 'Wedding Highlight Reel',
+        description: 'Cinematic wedding video edit with professional color grading and music synchronization.',
+        category: 'Video Editing',
+        image_url: 'https://images.unsplash.com/photo-1516321318423-f06f70a504f0?w=500&h=500&fit=crop',
+        featured: false,
+        order_index: 4,
+      },
+      {
+        title: 'Brand Marketing Package',
+        description: 'Comprehensive marketing collateral including brochures, social media templates, and promotional materials.',
+        category: 'Graphic Design',
+        image_url: 'https://images.unsplash.com/photo-1559389417773-efb91ebf1ee9?w=500&h=500&fit=crop',
+        featured: false,
+        order_index: 5,
+      },
+      {
+        title: 'Motion Graphics Animation',
+        description: 'Complex motion graphics sequence for corporate presentation with 3D elements.',
+        category: 'Motion Graphics',
+        image_url: 'https://images.unsplash.com/photo-1536647834828-2b2fc4ebeaa0?w=500&h=500&fit=crop',
+        featured: false,
+        order_index: 6,
+      },
+      {
+        title: 'App Icon Design Set',
+        description: 'Comprehensive icon set for mobile and web application with multiple states and variations.',
+        category: 'Graphic Design',
+        image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=500&fit=crop',
+        featured: false,
+        order_index: 7,
+      },
+      {
+        title: 'Commercial Production',
+        description: 'Full production and editing of 30-second commercial for television and streaming platforms.',
+        category: 'Video Editing',
+        image_url: 'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=500&h=500&fit=crop',
+        featured: false,
+        order_index: 8,
+      },
+    ]
+    await supabase.from('portfolio_items').insert(portfolioItems)
+  }
+
+  // Seed Testimonials
+  const { data: testimonialsData } = await supabase.from('testimonials').select('id').limit(1)
+  if (!testimonialsData || testimonialsData.length === 0) {
+    const testimonials = [
+      {
+        client_name: 'Sarah Johnson',
+        client_role: 'Marketing Director, Tech Corp',
+        content: 'The video editing work was exceptional. The team delivered professional-quality content that exceeded our expectations and significantly improved our engagement metrics.',
+        rating: 5,
+        order_index: 0,
+      },
+      {
+        client_name: 'Michael Chen',
+        client_role: 'Founder, Creative Startup',
+        content: 'Outstanding graphic design work for our brand identity. Every detail was carefully considered and perfectly executed. Highly recommended for any design project.',
+        rating: 5,
+        order_index: 1,
+      },
+      {
+        client_name: 'Emma Roberts',
+        client_role: 'Event Coordinator',
+        content: 'The motion graphics for our event promotion were absolutely stunning. They perfectly captured the energy and excitement we wanted to convey. Great collaboration!',
+        rating: 5,
+        order_index: 2,
+      },
+      {
+        client_name: 'David Thompson',
+        client_role: 'CEO, Digital Agency',
+        content: 'Professional, creative, and incredibly responsive to feedback. Delivered the project on time with exceptional quality. Would definitely work together again.',
+        rating: 5,
+        order_index: 3,
+      },
+      {
+        client_name: 'Jessica Williams',
+        client_role: 'Social Media Manager',
+        content: 'The creative solutions provided were innovative and modern. Our social media presence improved dramatically after implementing these designs. Fantastic work!',
+        rating: 5,
+        order_index: 4,
+      },
+    ]
+    await supabase.from('testimonials').insert(testimonials)
+  }
+
   // Seed Contact Info
   const { data: contactData } = await supabase.from('contact_info').select('id').limit(1)
   if (!contactData || contactData.length === 0) {
     await supabase.from('contact_info').insert({
-      email: 'hello@example.com',
+      email: 'hello@creativedesigner.com',
       phone: '+1 (555) 123-4567',
-      address: 'Creative Studio, Design City, DC 12345',
+      address: 'San Francisco, California',
       social_links: {
         instagram: 'https://instagram.com',
-        behance: 'https://behance.net',
         linkedin: 'https://linkedin.com',
-        youtube: 'https://youtube.com',
+        github: 'https://github.com',
+        twitter: 'https://twitter.com',
       },
-      form_description: 'Get in touch with me for inquiries about video editing, graphic design, or creative projects.',
+      form_description: 'Have a project in mind? I&apos;d love to hear about it. Get in touch with me for inquiries about video editing, graphic design, motion graphics, or any creative project.',
     })
   }
 }

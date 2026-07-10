@@ -12,32 +12,56 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   return (
-    <section id="testimonials" className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">
-          Testimonials
-        </h2>
+    <section id="testimonials" className="py-20 md:py-32 bg-background">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+            Client Testimonials
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            What my clients have to say about working together
+          </p>
+        </div>
 
         {testimonials.length === 0 ? (
-          <p className="text-center text-gray-500">No testimonials yet</p>
+          <p className="text-center text-muted-foreground py-12">No testimonials yet</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="bg-gray-50 rounded-lg p-8 border border-gray-100"
+                className="group relative bg-card border border-border rounded-xl p-8 hover:shadow-lg hover:border-accent transition-all duration-300"
               >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-lg">
+                {/* Quote mark */}
+                <div className="absolute -top-4 -left-4 text-5xl text-blue-200 font-serif">
+                  "
+                </div>
+
+                {/* Rating */}
+                <div className="flex gap-1 mb-4 relative z-10">
+                  {[...Array(5)].map((_, i) => (
+                    <span
+                      key={i}
+                      className={`text-lg ${
+                        i < testimonial.rating
+                          ? 'text-yellow-400'
+                          : 'text-gray-300'
+                      }`}
+                    >
                       ★
                     </span>
                   ))}
                 </div>
-                <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
-                <div>
-                  <p className="font-semibold text-gray-900">{testimonial.client_name}</p>
-                  <p className="text-sm text-gray-600">{testimonial.client_role}</p>
+
+                {/* Content */}
+                <p className="text-foreground mb-6 leading-relaxed italic font-light">
+                  &quot;{testimonial.content}&quot;
+                </p>
+
+                {/* Client Info */}
+                <div className="pt-6 border-t border-border">
+                  <p className="font-bold text-foreground">{testimonial.client_name}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.client_role}</p>
                 </div>
               </div>
             ))}
