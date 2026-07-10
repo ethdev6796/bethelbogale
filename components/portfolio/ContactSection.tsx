@@ -1,9 +1,5 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
 import { useState } from 'react'
 
 interface ContactSectionProps {
@@ -163,26 +159,27 @@ export function ContactSection({
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-foreground font-semibold">
+                <label htmlFor="name" className="block text-foreground font-semibold text-sm">
                   Full Name
-                </Label>
-                <Input
+                </label>
+                <input
                   id="name"
+                  type="text"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
                   placeholder="John Doe"
                   required
-                  className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
+                  className="w-full px-4 py-2 bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-foreground font-semibold">
+                <label htmlFor="email" className="block text-foreground font-semibold text-sm">
                   Email Address
-                </Label>
-                <Input
+                </label>
+                <input
                   id="email"
                   type="email"
                   value={formData.email}
@@ -191,15 +188,15 @@ export function ContactSection({
                   }
                   placeholder="john@example.com"
                   required
-                  className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
+                  className="w-full px-4 py-2 bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message" className="text-foreground font-semibold">
+                <label htmlFor="message" className="block text-foreground font-semibold text-sm">
                   Message
-                </Label>
-                <Textarea
+                </label>
+                <textarea
                   id="message"
                   value={formData.message}
                   onChange={(e) =>
@@ -208,7 +205,7 @@ export function ContactSection({
                   placeholder="Tell me about your project..."
                   rows={6}
                   required
-                  className="bg-secondary border-border text-foreground placeholder:text-muted-foreground resize-none"
+                  className="w-full px-4 py-2 bg-card border border-border text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                 />
               </div>
 
