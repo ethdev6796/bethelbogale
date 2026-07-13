@@ -94,12 +94,12 @@ export function HeroSection({
           <div className="relative h-96 md:h-full animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             {profileImageUrl ? (
               <div className="relative h-full">
-                {/* Profile Image with border and shadow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-3xl p-1 shadow-2xl">
+                {/* Profile Image (no border, no shadow) */}
+                <div className="absolute inset-0 rounded-3xl overflow-hidden">
                   <img
                     src={profileImageUrl}
                     alt="Bethel Bogale"
-                    className="w-full h-full object-cover rounded-3xl"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 {/* Animated accent circle behind image */}

@@ -7,6 +7,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useEffect, useState } from 'react'
+import { Upload } from 'lucide-react'
+import { uploadImage } from '@/lib/storage-actions'
 
 interface HeroData {
   id?: string
@@ -16,6 +18,7 @@ interface HeroData {
   cta_button_text: string
   cta_button_link: string
   background_image_url?: string
+  profile_image_url?: string
 }
 
 export default function HeroEditor() {
@@ -25,9 +28,11 @@ export default function HeroEditor() {
     description: '',
     cta_button_text: '',
     cta_button_link: '',
+    profile_image_url: '',
   })
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [message, setMessage] = useState('')
 
   useEffect(() => {
@@ -47,6 +52,28 @@ export default function HeroEditor() {
     fetchData()
   }, [])
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const result = await uploadImage(formData, 'portfolio')
+      if (result.error) throw new Error(result.error)
+
+      setData({ ...data, profile_image_url: result.url || '' })
+      setMessage('Profile image uploaded successfully!')
+      setTimeout(() => setMessage(''), 3000)
+    } catch (error) {
+      setMessage(`Upload error: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    } finally {
+      setUploading(false)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
@@ -64,6 +91,7 @@ export default function HeroEditor() {
             description: data.description,
             cta_button_text: data.cta_button_text,
             cta_button_link: data.cta_button_link,
+            profile_image_url: data.profile_image_url,
             updated_at: new Date().toISOString(),
           })
           .eq('id', data.id)
@@ -135,6 +163,32 @@ export default function HeroEditor() {
                 placeholder="Main description text"
                 rows={4}
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="image">Profile Image</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="image"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={uploading}
+                />
+                <Button type="button" disabled={uploading} variant="outline" size="sm">
+                  <Upload className="w-4 h-4 mr-2" />
+                  {uploading ? 'Uploading...' : 'Upload'}
+                </Button>
+              </div>
+              {data.profile_image_url && (
+                <div className="mt-2">
+                  <img
+                    src={data.profile_image_url}
+                    alt="Preview"
+                    className="h-32 w-32 object-cover rounded-lg border border-foreground/10"
+                  />
+                </div>
+              )}
             </div>
 
             <div className="space-y-2">

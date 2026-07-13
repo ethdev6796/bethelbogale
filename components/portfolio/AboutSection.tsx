@@ -25,7 +25,7 @@ export function AboutSection({ title, bio }: AboutSectionProps) {
               {bio}
             </p>
 
-            {/* Stats Grid */}
+            {/* Stats Grid
             <div className="grid grid-cols-3 gap-6 py-8 border-t-2 border-b-2 border-primary/10">
               <div className="text-center">
                 <p className="text-4xl font-black text-primary">5+</p>
@@ -39,7 +39,7 @@ export function AboutSection({ title, bio }: AboutSectionProps) {
                 <p className="text-4xl font-black text-primary">100%</p>
                 <p className="text-foreground/60 text-sm mt-1 font-semibold">Satisfied</p>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right: Highlights Box */}

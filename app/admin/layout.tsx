@@ -43,6 +43,12 @@ export default async function AdminLayout({
               <Link href="/admin/about" className="text-sm text-gray-600 hover:text-gray-900">
                 About
               </Link>
+              <Link href="/admin/experience" className="text-sm text-gray-600 hover:text-gray-900">
+                Experience
+              </Link>
+              <Link href="/admin/education" className="text-sm text-gray-600 hover:text-gray-900">
+                Education
+              </Link>
               <Link href="/admin/skills" className="text-sm text-gray-600 hover:text-gray-900">
                 Skills
               </Link>
