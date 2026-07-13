@@ -11,8 +11,8 @@ import Link from 'next/link'
 export default async function Home() {
   const supabase = await createClient()
 
-  // Fetch all portfolio data
-  const [heroData, aboutData, skillsData, portfolioData, servicesData, testimonialsData, contactData] = await Promise.all([
+  // Fetch all portfolio data with proper error handling
+  const [heroResult, aboutResult, skillsResult, portfolioResult, servicesResult, testimonialsResult, contactResult] = await Promise.all([
     supabase.from('hero').select('*').single(),
     supabase.from('about').select('*').single(),
     supabase.from('skills').select('*').order('order_index'),
@@ -21,6 +21,14 @@ export default async function Home() {
     supabase.from('testimonials').select('*').order('order_index'),
     supabase.from('contact_info').select('*').single(),
   ])
+
+  const heroData = heroResult.data
+  const aboutData = aboutResult.data
+  const skillsData = skillsResult.data || []
+  const portfolioData = portfolioResult.data || []
+  const servicesData = servicesResult.data || []
+  const testimonialsData = testimonialsResult.data || []
+  const contactData = contactResult.data
 
   return (
     <div className="min-h-screen">
@@ -55,52 +63,52 @@ export default async function Home() {
       </header>
 
       {/* Hero Section */}
-      {heroData.data && (
+      {heroData && (
         <HeroSection
-          title={heroData.data.title}
-          subtitle={heroData.data.subtitle}
-          description={heroData.data.description}
-          ctaButtonText={heroData.data.cta_button_text}
-          ctaButtonLink={heroData.data.cta_button_link}
+          title={heroData.title}
+          subtitle={heroData.subtitle}
+          description={heroData.description}
+          ctaButtonText={heroData.cta_button_text}
+          ctaButtonLink={heroData.cta_button_link}
         />
       )}
 
       {/* About Section */}
-      {aboutData.data && (
+      {aboutData && (
         <AboutSection
-          title={aboutData.data.title}
-          bio={aboutData.data.bio}
+          title={aboutData.title}
+          bio={aboutData.bio}
         />
       )}
 
       {/* Skills Section */}
-      {skillsData.data && skillsData.data.length > 0 && (
-        <SkillsSection skills={skillsData.data} />
+      {skillsData && skillsData.length > 0 && (
+        <SkillsSection skills={skillsData} />
       )}
 
       {/* Portfolio Section */}
-      {portfolioData.data && portfolioData.data.length > 0 && (
-        <PortfolioSection items={portfolioData.data} />
+      {portfolioData && portfolioData.length > 0 && (
+        <PortfolioSection items={portfolioData} />
       )}
 
       {/* Services Section */}
-      {servicesData.data && servicesData.data.length > 0 && (
-        <ServicesSection services={servicesData.data} />
+      {servicesData && servicesData.length > 0 && (
+        <ServicesSection services={servicesData} />
       )}
 
       {/* Testimonials Section */}
-      {testimonialsData.data && testimonialsData.data.length > 0 && (
-        <TestimonialsSection testimonials={testimonialsData.data} />
+      {testimonialsData && testimonialsData.length > 0 && (
+        <TestimonialsSection testimonials={testimonialsData} />
       )}
 
       {/* Contact Section */}
-      {contactData.data && (
+      {contactData && (
         <ContactSection
-          email={contactData.data.email}
-          phone={contactData.data.phone}
-          address={contactData.data.address}
-          socialLinks={contactData.data.social_links}
-          formDescription={contactData.data.form_description}
+          email={contactData.email}
+          phone={contactData.phone}
+          address={contactData.address}
+          socialLinks={contactData.social_links}
+          formDescription={contactData.form_description}
         />
       )}
 
