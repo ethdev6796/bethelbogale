@@ -8,6 +8,7 @@ interface HeroSectionProps {
   description: string
   ctaButtonText: string
   ctaButtonLink: string
+  profileImageUrl?: string
 }
 
 export function HeroSection({
@@ -16,6 +17,7 @@ export function HeroSection({
   description,
   ctaButtonText,
   ctaButtonLink,
+  profileImageUrl,
 }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 md:px-8 pt-24 pb-12 bg-background">
@@ -88,18 +90,34 @@ export function HeroSection({
             </div>
           </div>
 
-          {/* Right visual element */}
+          {/* Right visual element - Profile Image or Placeholder */}
           <div className="relative h-96 md:h-full animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl border border-primary/20 backdrop-blur-sm flex items-center justify-center overflow-hidden">
-              <div className="text-center">
-                <div className="text-6xl mb-4">🎬</div>
-                <p className="text-foreground/60 font-semibold">Creative Portfolio</p>
-                <p className="text-foreground/40 text-sm mt-2">Video & Graphic Design</p>
+            {profileImageUrl ? (
+              <div className="relative h-full">
+                {/* Profile Image with border and shadow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-3xl p-1 shadow-2xl">
+                  <img
+                    src={profileImageUrl}
+                    alt="Bethel Bogale"
+                    className="w-full h-full object-cover rounded-3xl"
+                  />
+                </div>
+                {/* Animated accent circle behind image */}
+                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-accent/20 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute -top-4 -left-4 w-40 h-40 bg-primary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
               </div>
-              {/* Decorative elements */}
-              <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-lg animate-pulse" />
-              <div className="absolute bottom-8 left-4 w-16 h-16 bg-accent/10 rounded-lg animate-pulse" style={{ animationDelay: '1s' }} />
-            </div>
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl border border-primary/20 backdrop-blur-sm flex items-center justify-center overflow-hidden">
+                <div className="text-center">
+                  <div className="text-6xl mb-4">🎬</div>
+                  <p className="text-foreground/60 font-semibold">Creative Portfolio</p>
+                  <p className="text-foreground/40 text-sm mt-2">Video & Graphic Design</p>
+                </div>
+                {/* Decorative elements */}
+                <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-lg animate-pulse" />
+                <div className="absolute bottom-8 left-4 w-16 h-16 bg-accent/10 rounded-lg animate-pulse" style={{ animationDelay: '1s' }} />
+              </div>
+            )}
           </div>
         </div>
 

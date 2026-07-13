@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { HeroSection } from '@/components/portfolio/HeroSection'
 import { AboutSection } from '@/components/portfolio/AboutSection'
+import { EducationSection } from '@/components/portfolio/EducationSection'
 import { SkillsSection } from '@/components/portfolio/SkillsSection'
 import { PortfolioSection } from '@/components/portfolio/PortfolioSection'
 import { ServicesSection } from '@/components/portfolio/ServicesSection'
@@ -12,9 +13,10 @@ export default async function Home() {
   const supabase = await createClient()
 
   // Fetch all portfolio data with proper error handling
-  const [heroResult, aboutResult, skillsResult, portfolioResult, servicesResult, testimonialsResult, contactResult] = await Promise.all([
+  const [heroResult, aboutResult, educationResult, skillsResult, portfolioResult, servicesResult, testimonialsResult, contactResult] = await Promise.all([
     supabase.from('hero').select('*').single(),
     supabase.from('about').select('*').single(),
+    supabase.from('education').select('*').order('order_index'),
     supabase.from('skills').select('*').order('order_index'),
     supabase.from('portfolio_items').select('*').order('order_index'),
     supabase.from('services').select('*').order('order_index'),
@@ -24,6 +26,7 @@ export default async function Home() {
 
   const heroData = heroResult.data
   const aboutData = aboutResult.data
+  const educationData = educationResult.data || []
   const skillsData = skillsResult.data || []
   const portfolioData = portfolioResult.data || []
   const servicesData = servicesResult.data || []
@@ -39,6 +42,9 @@ export default async function Home() {
           <div className="hidden md:flex gap-8 items-center">
             <a href="#about" className="text-foreground/70 hover:text-primary font-semibold text-sm transition">
               About
+            </a>
+            <a href="#education" className="text-foreground/70 hover:text-primary font-semibold text-sm transition">
+              Education
             </a>
             <a href="#skills" className="text-foreground/70 hover:text-primary font-semibold text-sm transition">
               Skills
@@ -70,6 +76,7 @@ export default async function Home() {
           description={heroData.description}
           ctaButtonText={heroData.cta_button_text}
           ctaButtonLink={heroData.cta_button_link}
+          profileImageUrl={heroData.profile_image_url}
         />
       )}
 
@@ -79,6 +86,11 @@ export default async function Home() {
           title={aboutData.title}
           bio={aboutData.bio}
         />
+      )}
+
+      {/* Education Section */}
+      {educationData && educationData.length > 0 && (
+        <EducationSection education={educationData} />
       )}
 
       {/* Skills Section */}
