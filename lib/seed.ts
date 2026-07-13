@@ -7,10 +7,10 @@ export async function seedDatabase() {
   const { data: heroData } = await supabase.from('hero').select('id').limit(1)
   if (!heroData || heroData.length === 0) {
     await supabase.from('hero').insert({
-      title: 'Hi, I&apos;m a Creative Designer',
+      title: 'Hi, I&apos;m Bethel Bogale',
       subtitle: 'Video Editor & Graphic Designer',
-      description: 'I create stunning visual content that brings your ideas to life with cutting-edge design and video editing.',
-      cta_button_text: 'View My Work',
+      description: 'I craft compelling visual narratives through professional video editing and stunning graphic design. Bringing your creative vision to life with precision and artistry.',
+      cta_button_text: 'Explore My Work',
       cta_button_link: '#portfolio',
     })
   }
@@ -19,8 +19,8 @@ export async function seedDatabase() {
   const { data: aboutData } = await supabase.from('about').select('id').limit(1)
   if (!aboutData || aboutData.length === 0) {
     await supabase.from('about').insert({
-      title: 'About Me',
-      bio: 'I&apos;m a passionate video editor and graphic designer with 5+ years of experience creating visually compelling content. I specialize in motion graphics, video production, and brand design. My work has been featured in various digital campaigns and creative projects.',
+      title: 'About Bethel',
+      bio: 'Hello! I&apos;m Bethel Bogale, a passionate video editor and graphic designer with a keen eye for detail and creative storytelling. With expertise in motion graphics, video production, and brand design, I transform ideas into visually captivating content. My mission is to help brands and creators stand out through exceptional design and compelling visual narratives. Every project is an opportunity to push creative boundaries and deliver excellence.',
     })
   }
 
@@ -203,16 +203,16 @@ export async function seedDatabase() {
   const { data: contactData } = await supabase.from('contact_info').select('id').limit(1)
   if (!contactData || contactData.length === 0) {
     await supabase.from('contact_info').insert({
-      email: 'hello@creativedesigner.com',
-      phone: '+1 (555) 123-4567',
-      address: 'San Francisco, California',
+      email: 'bethel@bogale.design',
+      phone: '+1 (555) 456-7890',
+      address: 'Creative Hub, Addis Ababa, Ethiopia',
       social_links: {
-        instagram: 'https://instagram.com',
-        linkedin: 'https://linkedin.com',
-        github: 'https://github.com',
-        twitter: 'https://twitter.com',
+        instagram: 'https://instagram.com/bethelbogale',
+        linkedin: 'https://linkedin.com/in/bethelbogale',
+        behance: 'https://behance.net/bethelbogale',
+        twitter: 'https://twitter.com/bethelbogale',
       },
-      form_description: 'Have a project in mind? I&apos;d love to hear about it. Get in touch with me for inquiries about video editing, graphic design, motion graphics, or any creative project.',
+      form_description: 'Ready to bring your vision to life? I specialize in video editing, graphic design, and motion graphics. Let&apos;s collaborate on your next creative project and create something extraordinary together.',
     })
   }
 }
