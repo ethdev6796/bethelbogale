@@ -101,14 +101,7 @@ export default async function Home() {
         }
       `}</style>
 
-      {/* Catchy welcome banner */}
-      <div className="flex justify-center items-center py-6 bg-gradient-to-r from-pink-500/5 via-purple-500/10 to-pink-500/5 border-b border-pink-500/10">
-        <div className="text-center px-6 py-2.5 rounded-full bg-card/40 backdrop-blur-sm border border-pink-500/20 shadow-sm animate-heartbeat hover:scale-105 transition-transform duration-300">
-          <span className="text-lg md:text-2xl font-black bg-gradient-to-r from-pink-500 via-purple-600 to-pink-500 bg-clip-text text-transparent animate-gradient-flow tracking-wider drop-shadow-sm flex items-center justify-center gap-2">
-            Smile, Betty! You mean everything. 😘
-          </span>
-        </div>
-      </div>
+
 
       <main>
 
